@@ -59,7 +59,7 @@ button,input,select{
 }
 
 .brand-mark img{
-  width:min(230px,58vw);
+  width:min(230px);
   height:auto
 }
 
@@ -551,6 +551,12 @@ input:not([type=checkbox]):focus{
   font-weight:700;
   box-shadow:0 8px 24px rgba(65,50,30,.08);
   transition:.2s
+}
+
+#openLogin {
+  min-width: 100px;
+  padding: 12px 24px;
+  font-size: 16px;
 }
 
 .top-login-btn:hover{
