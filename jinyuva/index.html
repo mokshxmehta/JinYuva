@@ -1,0 +1,178 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <link rel="icon" type="image/png" href="assets/logo-circular.png">
+  <link rel="apple-touch-icon" href="assets/logo-circular.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#f6f0e5" />
+  <title>JinYuva — Jain Youth Community</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <main class="app-shell">
+    <section class="page" id="languagePage">
+      <div class="brand-mark">
+        <img src="assets/jinyuva-logo.png" alt="JinYuva" />
+      </div>
+      <div class="language-card">
+        <p class="eyebrow">JinYuva</p>
+        <h1 id="languageTitle">Choose your language</h1>
+        <p id="languageSubtitle">Select the language you want to use for registration.</p>
+        <div class="language-grid">
+          <button class="language-option" data-lang="en">English</button>
+          <button class="language-option" data-lang="gu">ગુજરાતી</button>
+          <button class="language-option" data-lang="hi">हिन्दी</button>
+        </div>
+      </div>
+    </section>
+
+    <section class="page hidden" id="formPage">
+      <header class="form-header">
+        <img src="assets/jinyuva-wordmark.png" alt="JinYuva" class="wordmark" />
+        <button class="language-switch" id="changeLanguage">English</button>
+      </header>
+      <div class="form-card">
+        <p class="eyebrow" id="formEyebrow">JinYuva Community</p>
+        <h1 id="formTitle">Become a JinYuva member</h1>
+        <p class="intro" id="formIntro">Connect with Jain youth and be part of the community.</p>
+        <form id="registrationForm" novalidate>
+          <label for="name" id="nameLabel">Full Name</label>
+          <input id="name" name="name" autocomplete="name" maxlength="80" required />
+          <div class="error" id="nameError"></div>
+
+          <label for="phone" id="phoneLabel">Phone Number</label>
+          <div class="phone-row">
+            <span class="country-code">+91</span>
+            <input id="phone" name="phone" inputmode="numeric" autocomplete="tel" maxlength="10" placeholder="10-digit mobile number" required />
+          </div>
+          <div class="error" id="phoneError"></div>
+
+          <label for="dob" id="dobLabel">Date of Birth</label>
+          <input id="dob" name="dob" type="date" required />
+          <div class="hint" id="dobHint">Your age will be calculated from your date of birth.</div>
+          <div class="error" id="dobError"></div>
+
+          <div class="field">
+  <label for="sangh" id="sanghLabel">Which Sangh do you usually go to?</label>
+
+  <select id="sangh">
+    <option value="Shree Kalyankari Munisuvrat Siddharth Nagar Sangh">Kalyankari Munisuvrat Siddharth Nagar Sangh</option>
+    <option value="Shree Nagar Jain Sangh">Shree Nagar Jain Sangh</option>
+    <option value="Shree Dharmanath Swami Jain Sangh (Jawahar Nagar)">Shree Dharmanath Swami Jain Sangh (Jawahar Nagar)</option>
+    <option value="Shree Chintamani Parshwanath Jain Sangh(Aarey Road)">Shree Chintamani Parshwanath Jain Sangh(Aarey Road)</option>
+    <option value="Shree Vasupujya Bhagwan Jain Sangh(MG Road)">Shree Vasupujya Bhagwan Jain Sangh(MG Road)</option>
+    <option value="Shree Shantinath Shwetambar Jain Sangh(Jawahar Nagar)">Shree Shantinath Shwetambar Jain Sangh(Jawahar Nagar)</option>
+
+    <!-- End of Sangh List -->
+
+    <option value="None">None</option>
+    <option value="Other">Other</option>
+  </select>
+
+  <div id="otherSanghWrap" class="hidden">
+    <input
+      type="text"
+      id="otherSangh"
+      placeholder="Enter your Sangh name"
+      maxlength="100"
+    >
+  </div>
+
+  <p id="sanghHint" class="hint"></p>
+  <p id="sanghError" class="error"></p>
+</div>
+
+          <label class="check-row">
+            <input type="checkbox" id="confirm" required />
+            <span id="confirmText">I confirm that the information provided by me is correct.</span>
+          </label>
+          <div class="error" id="confirmError"></div>
+
+          <button class="primary-btn" type="submit" id="submitBtn">Create Membership</button>
+        </form>
+        <p class="privacy" id="privacyText">Your information is collected only for JinYuva community registration and related activities.</p>
+      </div>
+    </section>
+
+    <section class="page hidden" id="loadingPage">
+      <div class="loading-card">
+        <div class="spinner"></div>
+        <h2 id="loadingTitle">Creating your JinYuva membership…</h2>
+        <p id="loadingText">Please wait a moment.</p>
+      </div>
+    </section>
+
+    <section class="page hidden" id="cardPage">
+      <div class="success-head">
+        <div class="success-icon">✓</div>
+        <p class="eyebrow" id="successEyebrow">Welcome to JinYuva</p>
+        <h1 id="successTitle">Your membership is ready.</h1>
+      </div>
+      <article class="membership-card" id="membershipCard">
+        <div class="card-top">
+          <img src="assets/jinyuva-wordmark.png" alt="JinYuva" />
+          <span class="member-badge">MEMBER</span>
+        </div>
+        <div class="member-name" id="cardName">—</div>
+        <div class="member-details">
+          <div><span id="cardIdLabel">JinYuva ID</span><strong id="cardId">—</strong></div>
+          <div><span id="cardAgeLabel">Age</span><strong id="cardAge">—</strong></div>
+          <div><span id="cardSanghLabel">Sangh</span><strong id="cardSangh">—</strong></div>
+        </div>
+        <div class="card-actions">
+          <a id="whatsappLink" class="whatsapp-btn" href="#" target="_blank" rel="noopener">Join WhatsApp Group</a>
+
+          <a
+          id="instagramLink"
+          class="secondary-btn"
+          href="#"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Follow us on Instagram
+        </a>
+
+          <button id="downloadQr" class="secondary-btn" type="button">Save My QR</button>
+        </div>
+        <div class="card-qr-wrap">
+          <div id="memberQr" class="qr"></div>
+          <p id="qrHint">Scan this QR anytime to open your JinYuva membership card.</p>
+        </div>
+      </article>
+      <div class="disclaimer-box">
+        <strong id="saveIdTitle">Please save your Unique ID</strong>
+        <p id="saveIdText">You may need your JinYuva ID for future activities and registrations.</p>
+        <p id="wrongAgeText">If your age is incorrect, please contact <a id="contactLink" href="#">the JinYuva team</a>.</p>
+      </div>
+    </section>
+
+    <section class="page hidden" id="existingPage">
+      <div class="loading-card existing-card">
+        <div class="success-icon">✓</div>
+        <p class="eyebrow" id="existingEyebrow">Already Registered</p>
+        <h1 id="existingTitle">You already have a JinYuva membership.</h1>
+        <p id="existingText">Your existing membership card is shown below.</p>
+        <button class="primary-btn" id="viewExisting">View Membership Card</button>
+      </div>
+    </section>
+
+    <section class="page hidden" id="errorPage">
+      <div class="loading-card">
+        <div class="error-icon">!</div>
+        <h1 id="errorTitle">Something went wrong</h1>
+        <p id="errorText">Please try again.</p>
+        <button class="primary-btn" id="retryBtn">Try Again</button>
+      </div>
+    </section>
+  </main>
+
+  <script src="https://cdn.jsdelivr.net/npm/qrcodejs@1.0.0/qrcode.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="config.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
