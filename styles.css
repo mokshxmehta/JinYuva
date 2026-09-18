@@ -702,3 +702,24 @@ input:not([type=checkbox]):focus{
   .admin-tools{flex-direction:column}
   .admin-tools .secondary-btn{width:100%}
 }
+
+#memberLogout {
+  display: block;
+  width: 100%;
+  max-width: 658px;
+  margin: 12px auto 0;
+  padding: 11px 20px;
+  border: 1px solid #d8c7a5;
+  border-radius: 999px;
+  background: #eee5d5;
+  color: #5c574b;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: .2s;
+}
+
+#memberLogout:hover {
+  background: #e4d8c2;
+  color: #292b1c;
+}

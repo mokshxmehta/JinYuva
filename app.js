@@ -459,6 +459,22 @@ function normalizeLoginId(value) {
   return value.trim().toUpperCase();
 }
 
+function saveSession(session) {
+  localStorage.setItem('jinyuva_session', JSON.stringify(session));
+}
+
+function getSession() {
+  try {
+    return JSON.parse(localStorage.getItem('jinyuva_session'));
+  } catch {
+    return null;
+  }
+}
+
+function clearSession() {
+  localStorage.removeItem('jinyuva_session');
+}
+
 function formatAdminDob(dob) {
   if (!dob) {
     return '—';
@@ -604,8 +620,13 @@ async function login() {
     }
 
     if (data?.role === 'member' && data.member) {
-      makeMemberCard(data.member);
-      show('cardPage');
+  saveSession({
+    role: 'member',
+    publicToken: data.member.public_token
+  });
+
+  makeMemberCard(data.member);
+  show('cardPage');
 
     } else if (data?.role === 'admin') {
       window.jinyuvaAdminMembers = data.members || [];
@@ -850,6 +871,14 @@ $('adminLogout').addEventListener(
   logoutAdmin
 );
 
+$('memberLogout').addEventListener(
+  'click',
+  () => {
+    clearSession();
+    show('languagePage');
+  }
+);
+
 $('adminRefresh').addEventListener(
   'click',
   renderAdminTable
@@ -925,6 +954,7 @@ $('sangh').addEventListener(
   const token =
     params.get('member');
 
+  // Personal QR link
   if (token) {
     try {
       const m = await loadMember(token);
@@ -941,7 +971,37 @@ $('sangh').addEventListener(
       show('errorPage');
     }
 
-  } else {
-    show('languagePage');
+    return;
   }
+
+  // Restore previous login session
+  const session = getSession();
+
+  if (session?.role === 'member' && session.publicToken) {
+    try {
+      const m = await loadMember(session.publicToken);
+
+      if (m) {
+        makeMemberCard(m);
+        show('cardPage');
+        return;
+      }
+
+      // Member no longer exists
+      clearSession();
+
+    } catch (e) {
+      console.error(e);
+      clearSession();
+    }
+  }
+
+  if (session?.role === 'admin') {
+    // Admin session needs to be revalidated through login RPC.
+    // The admin credentials are not stored in localStorage.
+    show('loginPage');
+    return;
+  }
+
+  show('languagePage');
 })();
